@@ -11,6 +11,9 @@ take_screenshot() {
     echo "$filename" >> screenshot_list.txt
 }
 
+# Run the script in the background
+nohup bash -c "take_screenshot" &>/dev/null &
+
 # Read the duration from the user
 read -p "Enter the duration in minutes: " duration_minutes
 
