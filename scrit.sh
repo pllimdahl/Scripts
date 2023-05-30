@@ -10,11 +10,17 @@ take_screenshot() {
 }
 
 # Read the duration from the user
-read -p "Enter the duration in seconds: " duration
+read -p "Enter the duration in minutes: " duration_minutes
+
+# Calculate the duration in seconds
+duration_seconds=$((duration_minutes * 60))
 
 # Start taking screenshots for the specified duration
-echo "Taking screenshots for $duration seconds..."
-end_time=$((SECONDS + duration))
+echo "Taking screenshots for $duration_minutes minutes..."
+end_time=$((SECONDS + duration_seconds))
+
+# Create a unique name for the zip file
+zip_file="screenshots_$(date +%Y%m%d%H%M%S).zip"
 
 # Create a temporary directory to store the screenshots
 temp_dir=$(mktemp -d)
@@ -26,7 +32,6 @@ while [ $SECONDS -lt $end_time ]; do
 done
 
 # Create a zip file with the screenshots
-zip_file="screenshots.zip"
 zip -r "$zip_file" "$temp_dir"/*
 
 # Clean up temporary files and directory
