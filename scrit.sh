@@ -12,12 +12,34 @@ take_screenshot() {
 # Read the duration from the user
 read -p "Enter the duration in minutes: " duration_minutes
 
+# Read the time to start from the user
+read -p "Enter the time to start (HH:MM format): " start_time
+
 # Calculate the duration in seconds
 duration_seconds=$((duration_minutes * 60))
 
-# Start taking screenshots for the specified duration
-echo "Taking screenshots for $duration_minutes minutes..."
-end_time=$((SECONDS + duration_seconds))
+# Convert start time to timestamp
+start_timestamp=$(date -d "$start_time" +%s)
+
+# Calculate the end time
+end_timestamp=$((start_timestamp + duration_seconds))
+
+# Get the current timestamp
+current_timestamp=$(date +%s)
+
+# Calculate the sleep duration
+sleep_duration=$((start_timestamp - current_timestamp))
+
+if [ $sleep_duration -gt 0 ]; then
+    echo "Waiting for the specified start time..."
+    sleep $sleep_duration
+fi
+
+# Start taking screenshots until the end time is reached
+while [ $(date +%s) -lt $end_timestamp ]; do
+    take_screenshot
+    sleep 1
+done
 
 # Create a unique name for the zip file
 zip_file="screenshots_$(date +%Y%m%d%H%M%S).zip"
@@ -26,15 +48,13 @@ zip_file="screenshots_$(date +%Y%m%d%H%M%S).zip"
 temp_dir=$(mktemp -d)
 screenshot_list="$temp_dir/screenshot_list.txt"
 
-while [ $SECONDS -lt $end_time ]; do
-    take_screenshot
-    sleep 1
-done
+# Move all the screenshots to the temporary directory
+mv screenshot_*.png "$temp_dir"
 
 # Create a zip file with the screenshots
 zip -r "$zip_file" "$temp_dir"/*
 
 # Clean up temporary files and directory
-rm -rf "$temp_dir"
+rm -rf "$temp_dir" screenshot_list.txt
 
 echo "Screenshots saved in $zip_file"
