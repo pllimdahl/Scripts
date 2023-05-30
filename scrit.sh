@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DISPLAY=:0
+
 # Function to take screenshots
 take_screenshot() {
     local timestamp=$(date +%Y%m%d%H%M%S)
