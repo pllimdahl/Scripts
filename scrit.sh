@@ -43,7 +43,7 @@ fi
 # Start taking screenshots until the end time is reached
 while [ $(date +%s) -lt $end_timestamp ]; do
     take_screenshot
-    sleep 1
+    sleep 4
 done
 
 # Create a unique name for the zip file
