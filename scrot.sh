@@ -5,7 +5,7 @@ export DISPLAY=:0
 # Function to take screenshots
 take_screenshot() {
     local timestamp=$(date +%Y%m%d%H%M%S)
-    local filename="screenshot_${timestamp}.png"
+    local filename="screenshot_${timestamp}.jpg"
     scrot "$filename"
     echo "Screenshot saved: $filename"
     echo "$filename" >> screenshot_list.txt
