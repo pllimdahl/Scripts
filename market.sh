@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Array of options
-options=("Option 1" "Option 2" "Option 3" "Option 4")
+options=("cinemataztic-en" "cinesa-es" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "redyplay-de" "wideeyemedia-ie")
 
 # Display the menu
 echo "Choose an option:"
