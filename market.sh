@@ -18,3 +18,10 @@ if ! [[ $choice =~ $re ]] || ((choice < 1)) || ((choice > ${#options[@]})); then
     echo "Invalid choice. Please enter a valid number."
     exit 1
 fi
+
+selected_option="${options[choice-1]}"
+
+sudo sed -i "s/^DefaultEnvironment=MARKET=.*/DefaultEnvironment=MARKET=$selected_option/" /etc/systemd/system.conf
+
+echo "MARKET environment variable updated to '$selected_option' in /etc/systemd/system.conf"
+
