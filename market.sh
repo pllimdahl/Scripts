@@ -3,7 +3,7 @@
 sudo systemctl stop cinemataztic-player
 
 # Array of options
-options=("cinemataztic-en" "cinesafun-es" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "redyplay-de" "wideeyemedia-ie")
+options=("cinemataztic-en" "cinesafun-es" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "cinemataztic-au" "cinemataztic-nz" "weischer-de" "redyplay-de" "wideeyemedia-ie")
 
 # Display the menu
 echo "Choose a market:"
@@ -38,4 +38,6 @@ if [[ $reboot_choice =~ ^[Yy]$ ]]; then
 else
     echo "Reboot not requested. Exiting script."
 fi
+
+
 
