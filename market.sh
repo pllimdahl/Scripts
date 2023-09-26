@@ -3,7 +3,7 @@
 sudo systemctl stop cinemataztic-player
 
 # Array of options
-options=("cinemataztic-en" "cinesafun-es" "biospil-dk" "drf-dk" "leffapeli-fi" "finnkino-fi" "itv-in" "mdn-no" "cinemataztic-au" "cinemataztic-nz" "weischer-de" "redyplay-de" "wideeyemedia-ie")
+options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
 # Display the menu
 echo "Choose a market:"
 for ((i=0; i<${#options[@]}; i++)); do
