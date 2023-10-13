@@ -25,20 +25,27 @@ if ((env_choice == 1)); then
     environment="Production"
 elif ((env_choice == 2)); then
     environment="Staging"
-else
+elif ((env_choice == 3)); then
     environment="Development"
+else
+    echo "Invalid environment choice."
+    exit 1
 fi
 
-# Depending on the selected environment, set appropriate market options
+# Depending on the selected environment, set appropriate market options and BASE_URL
 case "$environment" in
     "Production")
         options=("cinemataztic-en" "cinesafun-es" "drf-dk")
         ;;
     "Staging")
         options=("staging-option-1" "staging-option-2" "staging-option-3")
+        # Set BASE_URL for Staging environment
+        BASE_URL="BASE_URL=https://finnkino.fi.api.player.staging.cinemataztic.com/v2"
         ;;
     "Development")
         options=("dev-option-1" "dev-option-2" "dev-option-3")
+        # Set BASE_URL for Development environment
+        BASE_URL="BASE_URL=https://finnkino.fi.api.player.dev.cinemataztic.com/v2"
         ;;
     *)
         echo "Invalid environment choice."
