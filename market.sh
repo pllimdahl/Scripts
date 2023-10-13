@@ -91,6 +91,10 @@ case "$environment" in
         ;;
 esac
 
+if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
+    echo "$BASE_URL" | sudo tee -a /etc/systemd/system.conf
+fi
+
 sleep 3
 
 sudo rm /home/player/conf-db.json
@@ -103,7 +107,5 @@ else
     echo "Reboot not requested. Exiting script."
 fi
 
-if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
-    echo "$BASE_URL" | sudo tee -a /etc/systemd/system.conf
-fi
+
 
