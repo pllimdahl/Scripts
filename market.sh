@@ -2,6 +2,50 @@
 
 sudo systemctl stop cinemataztic-player
 
+
+# Ask the user to choose between Production, Staging, and Development
+echo "Choose an environment:"
+environments=("Production" "Staging" "Development")
+for ((i=0; i<${#environments[@]}; i++)); do
+    echo "$((i+1)). ${environments[i]}"
+done
+
+# Get user input for environment
+read -p "Enter the number of your choice (1-3): " env_choice
+
+# Validate user input for environment
+re='^[0-9]+$'
+if ! [[ $env_choice =~ $re ]] || ((env_choice < 1)) || ((env_choice > 3)); then
+    echo "Invalid choice. Please enter a valid number (1-3)."
+    exit 1
+fi
+
+# Set the environment based on user choice
+if ((env_choice == 1)); then
+    environment="Production"
+elif ((env_choice == 2)); then
+    environment="Staging"
+else
+    environment="Development"
+fi
+
+# Depending on the selected environment, set appropriate market options
+case "$environment" in
+    "Production")
+        options=("cinemataztic-en" "cinesafun-es" "drf-dk")
+        ;;
+    "Staging")
+        options=("staging-option-1" "staging-option-2" "staging-option-3")
+        ;;
+    "Development")
+        options=("dev-option-1" "dev-option-2" "dev-option-3")
+        ;;
+    *)
+        echo "Invalid environment choice."
+        exit 1
+        ;;
+esac
+
 # Array of options
 options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
 # Display the menu
