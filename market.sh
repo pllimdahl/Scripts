@@ -36,34 +36,7 @@ else
     exit 1
 fi
 
-# Depending on the selected environment, set appropriate market options and BASE_URL
-case "$environment" in
-    "Production")
-        options=("cinemataztic-en" "cinesafun-es" "drf-dk")
-        ;;
-    "Staging")
-        options=("staging-option-1" "staging-option-2" "staging-option-3")
-        # Set BASE_URL for Staging environment
-        if [[ "$selected_option" == "cinemataztic-en" ]]; then
-            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.staging.cinemataztic.com/v2"
-        else
-            BASE_URL="BASE_URL=your_staging_url_for_other_markets"
-        fi
-        ;;
-    "Development")
-        options=("dev-option-1" "dev-option-2" "dev-option-3")
-        # Set BASE_URL for Development environment
-        if [[ "$selected_option" == "cinemataztic-en" ]]; then
-            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.dev.cinemataztic.com/v2"
-        else
-            BASE_URL="BASE_URL=your_dev_url_for_other_markets"
-        fi
-        ;;
-    *)
-        echo "Invalid environment choice."
-        exit 1
-        ;;
-esac
+
 
 # Array of options
 options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
@@ -88,6 +61,35 @@ selected_option="${options[choice-1]}"
 sudo sed -i "s/^DefaultEnvironment=MARKET=.*/DefaultEnvironment=MARKET=$selected_option/" /etc/systemd/system.conf
 
 echo "MARKET environment variable updated to '$selected_option' in /etc/systemd/system.conf"
+
+# Depending on the selected environment, set appropriate market options and BASE_URL
+case "$environment" in
+    "Production")
+        options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
+        ;;
+    "Staging")
+        options=("cinemataztic-en" "finnkino-fi")
+        # Set BASE_URL for Staging environment
+        if [[ "$selected_option" == "finnkino-fi" ]]; then
+            BASE_URL="BASE_URL=https://finnkino.fi.api.player.dev.cinemataztic.com/v2"
+        else
+            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.dev.cinemataztic.com/v2"
+        fi
+        ;;
+    "Development")
+        options=("cinemataztic-en" "finnkino-fi")
+        # Set BASE_URL for Development environment
+        if [[ "$selected_option" == "finnkino-fi" ]]; then
+            BASE_URL="BASE_URL=https://finnkino.fi.api.player.dev.cinemataztic.com/v2"
+        else
+            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.dev.cinemataztic.com/v2"
+        fi
+        ;;
+    *)
+        echo "Invalid environment choice."
+        exit 1
+        ;;
+esac
 
 sleep 3
 
