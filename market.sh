@@ -89,5 +89,7 @@ else
     echo "Reboot not requested. Exiting script."
 fi
 
-
+if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
+    sudo sed -i "/^DefaultEnvironment=MARKET=.*/a $BASE_URL" /etc/systemd/system.conf
+fi
 
