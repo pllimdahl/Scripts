@@ -1,7 +1,11 @@
 #!/bin/bash
 
 sudo systemctl stop cinemataztic-player
+sudo systemctl stop dch-p
 
+
+# Remove the BASE_URL line from system.conf
+sudo sed -i '/^BASE_URL=/d' /etc/systemd/system.conf
 
 # Ask the user to choose between Production, Staging, and Development
 echo "Choose an environment:"
@@ -40,12 +44,20 @@ case "$environment" in
     "Staging")
         options=("staging-option-1" "staging-option-2" "staging-option-3")
         # Set BASE_URL for Staging environment
-        BASE_URL="BASE_URL=https://finnkino.fi.api.player.staging.cinemataztic.com/v2"
+        if [[ "$selected_option" == "cinemataztic-en" ]]; then
+            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.staging.cinemataztic.com/v2"
+        else
+            BASE_URL="BASE_URL=your_staging_url_for_other_markets"
+        fi
         ;;
     "Development")
         options=("dev-option-1" "dev-option-2" "dev-option-3")
         # Set BASE_URL for Development environment
-        BASE_URL="BASE_URL=https://finnkino.fi.api.player.dev.cinemataztic.com/v2"
+        if [[ "$selected_option" == "cinemataztic-en" ]]; then
+            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.dev.cinemataztic.com/v2"
+        else
+            BASE_URL="BASE_URL=your_dev_url_for_other_markets"
+        fi
         ;;
     *)
         echo "Invalid environment choice."
@@ -90,6 +102,6 @@ else
 fi
 
 if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
-    sudo sed -i "/^DefaultEnvironment=MARKET=.*/a $BASE_URL" /etc/systemd/system.conf
+    echo "$BASE_URL" | sudo tee -a /etc/systemd/system.conf
 fi
 
