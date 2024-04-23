@@ -92,10 +92,11 @@ case "$environment" in
 esac
 
 sleep 3
-sudo rm -r /opt/DCH-P/realm/*
+
 
 read -p "Do you want to reboot the system now to apply the changes? (y/n): " reboot_choice
 if [[ $reboot_choice =~ ^[Yy]$ ]]; then
+    sudo rm -r /opt/DCH-P/realm/*
     sudo reboot
 else
     echo "Reboot not requested. Exiting script."
