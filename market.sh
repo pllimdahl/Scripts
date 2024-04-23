@@ -91,6 +91,17 @@ case "$environment" in
         ;;
 esac
 
+#if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
+#    sudo sed -i "/MARKET/ s/$/ $BASE_URL/" /etc/systemd/system.conf
+#fi
+
+if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
+    sudo sed -i "s|MARKET.*|& $BASE_URL|" /etc/systemd/system.conf
+fi
+
+echo "BASE_URL environment variable updated to '$BASE_URL' in /etc/systemd/system.conf"
+
+
 sleep 3
 
 
@@ -102,7 +113,5 @@ else
     echo "Reboot not requested. Exiting script."
 fi
 
-if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
-    echo "$BASE_URL" | sudo tee -a /etc/systemd/system.conf
-fi
+
 
