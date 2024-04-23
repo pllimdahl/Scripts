@@ -71,9 +71,9 @@ case "$environment" in
         options=("cinemataztic-en" "finnkino-fi")
         # Set BASE_URL for Staging environment
         if [[ "$selected_option" == "finnkino-fi" ]]; then
-            BASE_URL="BASE_URL=https://finnkino.fi.api.player.dev.cinemataztic.com/v2"
+            BASE_URL="BASE_URL=https://finnkino.fi.api.player.staging.cinemataztic.com/v2"
         else
-            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.dev.cinemataztic.com/v2"
+            BASE_URL="BASE_URL=https://cinemataztic.en.api.player.staging.cinemataztic.com/v2"
         fi
         ;;
     "Development")
