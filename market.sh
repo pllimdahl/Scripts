@@ -91,9 +91,7 @@ case "$environment" in
         ;;
 esac
 
-#if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
-#    sudo sed -i "/MARKET/ s/$/ $BASE_URL/" /etc/systemd/system.conf
-#fi
+
 
 if [[ "$environment" == "Staging" || "$environment" == "Development" ]]; then
     sudo sed -i "s|MARKET.*|& $BASE_URL|" /etc/systemd/system.conf
