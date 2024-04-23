@@ -39,7 +39,7 @@ fi
 
 
 # Array of options
-options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
+options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie"  "filmstaden-se")
 # Display the menu
 echo "Choose a market:"
 for ((i=0; i<${#options[@]}; i++)); do
