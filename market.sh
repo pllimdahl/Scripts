@@ -93,8 +93,6 @@ esac
 
 sleep 3
 
-sudo rm /home/player/conf-db.json
-sudo rm -r /home/player/Assets/*
 
 read -p "Do you want to reboot the system now to apply the changes? (y/n): " reboot_choice
 if [[ $reboot_choice =~ ^[Yy]$ ]]; then
