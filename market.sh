@@ -65,7 +65,7 @@ echo "MARKET environment variable updated to '$selected_option' in /etc/systemd/
 # Depending on the selected environment, set appropriate market options and BASE_URL
 case "$environment" in
     "Production")
-        options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie")
+        options=("cinemataztic-en" "drf-dk" "finnkino-fi" "itv-in" "mdn-no" "valmorgan-au" "valmorgan-nz" "weischer-de" "wideeyemedia-ie" "filmstaden-se")
         ;;
     "Staging")
         options=("cinemataztic-en" "finnkino-fi")
